@@ -11,3 +11,10 @@ git push origin main
 git sync
 
 
+https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource
+
+
+#important step and key command
+
+terraform apply -var "build_id=2" 
+

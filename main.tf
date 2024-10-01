@@ -13,8 +13,8 @@ data "aws_vpc" "default_vpc" {
 # get a security group by name
 
 data "aws_security_group" "web" {
-  vpc_id = "vpc-00d94060a9f821f54"
-  name   = "launch-wizard-2"
+  vpc_id = "vpc-00d94060a9f821f54"   # data.aws_vpc.default_vpc.id  # check this
+  name   = "launch-wizard-2"   # check this
 }
 
 # get ubuntu ami
@@ -31,7 +31,7 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  owners = ["099720109477"] # Canonical
+  owners = ["099720109477"] # Canonical   #check this
 }
 
 
@@ -44,41 +44,41 @@ resource "aws_instance" "web" {
   tags = {
     Name = "web"
   }
-    connection {
-        type        = "ssh"
-        user        = "ubuntu"
-        private_key = file("c:/Users/segum01/.ssh/my_idrsa.pem")
-        host        = aws_instance.web.public_ip
-    }
-    provisioner "remote-exec" {
-        script = "./installbrowny.sh"
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file("c:/Users/segum01/.ssh/my_idrsa.pem")
+    host        = aws_instance.web.public_ip
+  }
+  provisioner "remote-exec" {
+    script = "./installbrowny.sh"
 
-    }
+  }
 
 
 }
 
-# resource "null_resource" "test" {
-#   triggers = {
-#     build_id = var.build_id
-#   }
-#   connection {
-#     type        = "ssh"
-#     user        = "ubuntu"
-#     private_key = file("c:/Users/segum01/.ssh/my_idrsa.pem")
-#     host        = aws_instance.web.public_ip
-#   }
-#   provisioner "remote-exec" {
-#     script = "./installbrowny.sh"
+resource "null_resource" "test" {
+  triggers = {
+    build_id = var.build_id
+  }
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file("c:/Users/segum01/.ssh/my_idrsa.pem")  # check this 
+    host        = aws_instance.web.public_ip
+  }
+  provisioner "remote-exec" {
+    script = "./installbrowny.sh" #check the correct spell
 
-#   }
+  }
 
-# }
+}
 
 output "browny" {
   value = "http://${aws_instance.web.public_ip}/browny"
 }
 
-# output "repairs" {
-#   value = "http://${aws_instance.web.public_ip}/repairs"
-# }
+output "repairs" {
+  value = "http://${aws_instance.web.public_ip}/repairs"
+}
