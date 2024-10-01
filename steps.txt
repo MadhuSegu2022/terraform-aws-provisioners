@@ -1,3 +1,13 @@
 git clone https://github.com/MadhuSegu2022/terraform-aws-provisioners.git
 
 ref: https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec
+
+https://github.com/MadhuSegu2022/terraform-aws-provisioners.git
+
+git init
+git add .
+git commit -m "added changes"
+git push origin main
+git sync
+
+
